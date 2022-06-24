@@ -1,18 +1,21 @@
 package vn.su.bookauthor.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,10 +31,10 @@ public class Author {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "author")
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    @JsonBackReference
     private List<Book> listBook = new ArrayList<>();
-
+    
     public Author(String name) {
         this.name = name;
     }
