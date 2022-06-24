@@ -26,7 +26,7 @@ public class AuthorService {
         if (authorRepository.findById(authorRequest.getId()).isEmpty()) {
             return authorRepository.save(authorRequest);
         } else {
-            throw new NotFoundException("Đã có quyển sách này, không thể thêm vào kho lưu trữ");
+            throw new NotFoundException("Đã có tác giả này");
         }
 
     }
@@ -36,7 +36,7 @@ public class AuthorService {
         if (author.isPresent()) {
             return author.get();
         } else {
-            throw new NotFoundException("Không tìm thấy sách hợp lệ");
+            throw new NotFoundException("Không tìm thấy tác giả hợp lệ");
         }
     }
 
@@ -44,9 +44,9 @@ public class AuthorService {
         Optional<Author> authorDiscarded = authorRepository.findById(id);
         if (authorDiscarded.isPresent()) {
             authorRepository.delete(authorDiscarded.get());
-            return "Đã xoá thành công quyển " + authorDiscarded.get().getName();
+            return "Đã xoá thành công tác giả " + authorDiscarded.get().getName();
         } else {
-            throw new NotFoundException("Không tìm thấy sách để xoá");
+            throw new NotFoundException("Không tìm thấy tác giả để xoá");
         }
 
     }
@@ -57,7 +57,7 @@ public class AuthorService {
             authorUpdate.setName(existAuthor.get().getName());
             return authorRepository.save(authorUpdate);
         } else {
-            throw new NotFoundException("Không tìm thấy sách trong kho lưu trữ");
+            throw new NotFoundException("Không tìm thấy tác giả ");
         }
 
     }
